@@ -11,24 +11,24 @@ const int coins[] = {25, 10, 5, 1};
 int main()
 {
 #if 0
-	for (uint64 i = 1; i < 10000; i++){
+    for (uint64 i = 1; i < 10000; i++){
         uint64 a = possible_sets_iterative_n2(i);
         uint64 b = possible_sets_iterative_linear(i);
         if (a != b)
-		printf("   f(%llu) = %llu %s %llu\n", i, b, a!=b ? "\tNOT EQUAL TO " : "", a);
+        printf("   f(%llu) = %llu %s %llu\n", i, b, a!=b ? "\tNOT EQUAL TO " : "", a);
     }   
 #endif
     
     for (uint64 i = 1; i < 1ULL << 30; i <<= 1){
         uint64 a = possible_sets_iterative_linear(i);
-		printf("f(%llu) = %llu\n", i, a);
+        printf("f(%llu) = %llu\n", i, a);
     }     
-	return 0;
+    return 0;
 }
 
 uint64 possible_sets_iterative_linear(uint64 cents)
 {
-	uint64 sets = 0;
+    uint64 sets = 0;
     uint64 n, max, min, sum;
     cents = cents - cents % 5 + 5; // make this divisible by 5
     for(int i = cents; i > 0; i -= 25){
@@ -45,23 +45,23 @@ uint64 possible_sets_iterative_linear(uint64 cents)
         }      
         sets += sum / 5 + (n ? n + 1 : 1) * ((i % 5) ? 1 : 0);        
     } 
-	return sets;
+    return sets;
 }
 
 uint64 possible_sets_iterative_n2(uint64 cents)
 {
-	uint64 sets = 0;
+    uint64 sets = 0;
     for(int i = cents + 1; i > 0; i -= 25){
         for(int j = i; j > 0; j -= 10){
             sets += (j / 5 + ((j % 5) ? 1 : 0));
         }
     }
-	return sets;
+    return sets;
 }
 
 uint64 possible_sets_iterative(uint64 cents)
 {
-	uint64 sets = 0;
+    uint64 sets = 0;
     for(int i = cents + 1; i > 0; i -= 25){
         for(int j = i; j > 0; j -= 10){
             for(int k = j; k > 0; k -= 5){
@@ -69,5 +69,5 @@ uint64 possible_sets_iterative(uint64 cents)
             }
         }
     }
-	return sets;
+    return sets;
 }
